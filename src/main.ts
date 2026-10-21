@@ -9,6 +9,8 @@ import { compareArchives, DEFAULT_RULES, validateRules, type Comparison, type Ru
 import type { Archive } from './parser';
 import { SPONSORS, bindPro, isPro, resetPro } from './pro';
 import { Zkn3ArchiveImportSettingTab, normalizeSettings, type Zkn3ArchiveImportSettings } from './settings';
+import { setupHello } from './hello/index';
+import WHATS_NEW from './whats-new.json';
 
 export default class Zkn3ArchiveImportPlugin extends Plugin {
 	settings: Zkn3ArchiveImportSettings = normalizeSettings(null);
@@ -18,6 +20,8 @@ export default class Zkn3ArchiveImportPlugin extends Plugin {
 	private importing = false;
 
 	async onload(): Promise<void> {
+		// First: "What's new" reads its state before the settings load (packages/hello). It does not wait.
+		setupHello(this, WHATS_NEW);
 		await this.loadSettings();
 		const pro = createGitHubSponsors(this.app, this.manifest.id, SPONSORS, this);
 		pro.init();

@@ -26,7 +26,7 @@ A note link such as `[z 3]Other[/z]` becomes `[[3|Other]]`. Manual cross-referen
 
 ### Exact keywords and basic markup
 
-Keywords go into a `keywords` list property with their exact values. The keywords `two words` and `two-words` stay as two values, and a keyword with a slash stays unchanged. Tags are not made unless you turn on the Pro rule for tags.
+Keywords go into a `keywords` list property with their exact values. The keywords `two words` and `two-words` stay as two values, and a keyword with a slash stays unchanged.
 
 The import converts this markup: `[br]` to a line break, `[f]` and `[b]` to bold, `[k]` and `[i]` to italic, `[h1]` to `[h6]` to headings, `[q]` to a quote, and `[z n]` to a note link. Markdown text stays unchanged. `[color]`, `[u]` and `[sup]` stay as source text and the report lists them. Other unsupported markup stays as source text. Remarks go into a "Remarks" section.
 
@@ -34,7 +34,7 @@ The import converts this markup: `[br]` to a line break, `[f]` and `[b]` to bold
 
 ### Saved keyword and file name rules (Pro)
 
-Free imports name the files by position and put keywords in the `keywords` property. With Pro, the "Import rules (Pro)" section in the import window has three rules. "Position and title" adds the note title to the file name, for example `1 Start.md`. "Keyword property" sets a different property name. "Also add keywords as tags" adds a tag for each keyword; spaces become hyphens and the exact values stay in the keyword property. Select "Save rules" to keep the rules for the next import.
+With Pro, the "Import rules (Pro)" section in the import window has three rules. "Position and title" adds the note title to the file name, for example `1 Start.md`. "Keyword property" sets a different property name. "Also add keywords as tags" adds a tag for each keyword; spaces become hyphens and the exact values stay in the keyword property. Select "Save rules" to keep the rules for the next import.
 
 Note links follow the file name rule. When Pro turns off, the import uses the free rules again.
 
@@ -63,6 +63,8 @@ A second import of the same archive into the same folder skips the notes that ex
 
 ## Settings
 
+After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
+
 The settings tab sets the default import folder and has the GitHub Sponsors controls. The import window has the import folder and the Pro rules. A completed import saves its folder for the next import. Saved rules go into the local settings file of the plugin.
 
 ## FAQ
@@ -77,13 +79,13 @@ This version does not copy authors, attachments, images, bookmarks, desktop outl
 
 ### What happens if a write fails or I stop the import?
 
-The result shows the created notes, the skipped notes, the errors and the count of notes that the import did not check. The notes that the import created stay in the folder. Correct the problem and run the import again. It skips the notes that exist.
+The result shows the created notes, the skipped notes, the errors and the count of notes that the import did not check. The notes that the import created stay in the folder. Correct the problem and run the import again.
 
 ### What did you test?
 
 Unit tests use synthetic `.zkn3` archives and an in-memory vault. They check a 75-note archive, a deleted slot, note links, cross-references, note sequences, exact keywords, heading and quote markup, a repeat import, file conflicts, rejected archives, size limits, stop between batches, write errors and the Pro guards. Desktop end-to-end tests pass on Obsidian 1.13.4 and 1.14.4. They check the file picker, the real XML parser, link resolution, repeat imports and Pro access after sign out.
 
-The two official public sample archives and a local deleted-slot fixture pass the unit and desktop tests. We did not test a real archive with note sequences, an archive with 23,000 notes, a phone or tablet, the phone file picker, a light theme, a live payment or a live GitHub sign in. The plugin uses no Node or Electron API, but we did not test it on a mobile device.
+The two official public sample archives and a local deleted-slot fixture pass the unit and desktop tests. We did not test a real archive with note sequences, an archive with 23,000 notes, a phone or tablet, the phone file picker, a light theme, a live payment or a live GitHub sign in. The plugin uses no Node or Electron API.
 
 ## Payment, account and network
 

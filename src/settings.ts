@@ -3,6 +3,7 @@ import { sponsorsSettingItems } from './license/github-obsidian';
 import { DEFAULT_RULES, normalizeRules, safeFolder, type Rules } from './model';
 import { PRO_UI } from './pro';
 import type Zkn3ArchiveImportPlugin from './main';
+import { helloSettingItems } from './hello/settings';
 
 export interface Zkn3ArchiveImportSettings { folder: string; rules: Rules }
 export const DEFAULT_SETTINGS: Zkn3ArchiveImportSettings = { folder: 'Zettelkasten import', rules: { ...DEFAULT_RULES } };
@@ -18,6 +19,11 @@ export function normalizeSettings(saved: unknown): Zkn3ArchiveImportSettings {
 export class Zkn3ArchiveImportSettingTab extends PluginSettingTab {
 	constructor(app: ConstructorParameters<typeof PluginSettingTab>[0], readonly plugin: Zkn3ArchiveImportPlugin) { super(app, plugin); }
 	getSettingDefinitions(): SettingDefinitionItem[] {
+		// The product rows, then the "More from NoteMods" card (packages/hello).
+		return [...this.productSettingDefinitions(), ...helloSettingItems()];
+	}
+
+	productSettingDefinitions(): SettingDefinitionItem[] {
 		return [
 			{ name: 'Import folder', desc: 'Default folder for the new notes. You can change it in the import window.', control: { type: 'text', key: 'folder', defaultValue: DEFAULT_SETTINGS.folder } },
 			...(this.plugin.pro ? sponsorsSettingItems(this.plugin.pro, PRO_UI) : []),
