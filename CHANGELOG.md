@@ -1,5 +1,11 @@
 # zettelkasten-archive-import
 
+## 1.1.1
+
+### Patch Changes
+
+- 1e80c05: File name, Also add keywords as tags, Save rules and the earlier archive picker now show how to get Pro, with a Sponsor on GitHub button, when you select them. Nothing changes or saves until Pro is on.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -17,7 +17,7 @@ function setup(files: Record<string, string> = {}) {
 	const plugin = new Zkn3ArchiveImportPlugin(app as never, manifest as never);
 	return { app, plugin };
 }
-function pro(value: boolean) { bindPro({ isPro: () => value, onChange: () => () => undefined } as never); }
+function pro(value: boolean) { bindPro({ isPro: () => value, getState: () => ({ status: 'signed-out', lastAttemptAt: 0 }), hasToken: () => false, config: { sponsorLogin: 'theluckystrike' }, onChange: () => () => undefined } as never); }
 const read = async (app: ReturnType<typeof setup>['app'], path: string) => app.vault.read(app.vault.getAbstractFileByPath(path) as TFile);
 const TITLE_RULES: Rules = { fileName: 'number-title', keywordProperty: 'zkn_keywords', keywordTags: true };
 afterEach(() => resetPro());

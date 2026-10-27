@@ -4,7 +4,7 @@ import { MAX_ZIP } from './archive';
 import type { CancelToken, ImportPlan } from './importer';
 import { validateRules, type Rules } from './model';
 import type { Archive } from './parser';
-import { isPro } from './pro';
+import { isPro, proNotice } from './pro';
 import type Zkn3ArchiveImportPlugin from './main';
 
 export class ImportModal extends Modal {
@@ -133,20 +133,35 @@ export class ImportModal extends Modal {
 		const details = el.createEl('details', { cls: 'zkn3-rules' });
 		details.createEl('summary', { text: TEXT.rules });
 		if (!pro) details.createEl('p', { cls: 'setting-item-description', text: 'Free imports use the position as the file name and the keywords property.' });
-		new Setting(details).setName('File name').addDropdown((d) => d.addOption('number', 'Position').addOption('number-title', 'Position and title').setValue(this.rules.fileName).setDisabled(off).onChange((value) => { this.rules.fileName = value === 'number-title' ? 'number-title' : 'number'; this.invalidate(); }));
+		new Setting(details).setName('File name').addDropdown((d) => d.addOption('number', 'Position').addOption('number-title', 'Position and title').setValue(this.rules.fileName).setDisabled(this.busy).onChange((value) => {
+			// A free user's select shows the Pro notice and the dropdown shows the free rule again. setValue does not fire a change.
+			if (!isPro()) { proNotice(TEXT.needRules); d.setValue(this.rules.fileName); return; }
+			this.rules.fileName = value === 'number-title' ? 'number-title' : 'number'; this.invalidate();
+		}));
 		new Setting(details).setName('Keyword property').addText((t) => t.setValue(this.rules.keywordProperty).setDisabled(off).onChange((value) => { this.rules.keywordProperty = value.trim(); this.invalidate(); }));
-		new Setting(details).setName('Also add keywords as tags').setDesc('Spaces become hyphens. The exact values stay in the keyword property.').addToggle((t) => t.setValue(this.rules.keywordTags).setDisabled(off).onChange((value) => { this.rules.keywordTags = value; this.invalidate(); }));
-		new Setting(details).setName(TEXT.saveRules).addButton((b) => b.setButtonText('Save rules').setDisabled(off).onClick(() => void this.run(async () => {
-			validateRules(this.rules);
-			if (await this.plugin.saveRules(this.rules)) new Notice('Import rules saved.');
-		})));
+		new Setting(details).setName('Also add keywords as tags').setDesc('Spaces become hyphens. The exact values stay in the keyword property.').addToggle((t) => t.setValue(this.rules.keywordTags).setDisabled(this.busy).onChange((value) => {
+			// A free user's select shows the Pro notice and sets the toggle back to off. setValue(false) calls this
+			// callback again with false; the !isPro() check returns before any change.
+			if (!isPro()) { if (value) { proNotice(TEXT.needRules); t.setValue(false); } return; }
+			this.rules.keywordTags = value; this.invalidate();
+		}));
+		new Setting(details).setName(TEXT.saveRules).addButton((b) => b.setButtonText('Save rules').setDisabled(this.busy).onClick(() => {
+			// A free user's select shows the Pro notice. No rule is saved.
+			if (!isPro()) { proNotice(TEXT.needRules); return; }
+			void this.run(async () => {
+				validateRules(this.rules);
+				if (await this.plugin.saveRules(this.rules)) new Notice('Import rules saved.');
+			});
+		}));
 		const compare = new Setting(el).setName(TEXT.compare).setDesc('Select the archive of your last import. The preview lists the notes that were added, changed and removed.');
 		const input = compare.controlEl.createEl('input', { type: 'file', cls: 'zkn3-picker zkn3-earlier' });
 		input.accept = '.zkn3,.zip';
-		input.disabled = off || !this.archive;
+		input.disabled = this.busy || !this.archive;
 		input.setAttribute('aria-label', TEXT.compare);
 		input.addEventListener('change', () => {
 			const file = input.files?.[0];
+			// A free user's select shows the Pro notice. The earlier archive is not read, and the input is cleared.
+			if (file && !isPro()) { proNotice(TEXT.needCompare); input.value = ''; return; }
 			if (file) void this.run(async () => {
 				if (file.size > MAX_ZIP) throw new Error('The archive exceeds 20 MiB.');
 				this.earlier = this.plugin.readArchive(new Uint8Array(await file.arrayBuffer()));

@@ -7,6 +7,6 @@ export const TEXT = {
 	rules: 'Import rules (Pro)',
 	saveRules: 'Save rules (Pro)',
 	compare: 'Compare with an earlier archive (Pro)',
-	needRules: 'Saved keyword and file name rules need Pro. Sign in from the plugin settings.',
-	needCompare: 'The archive comparison needs Pro. Sign in from the plugin settings.',
+	needRules: 'Saved keyword and file name rules need Pro.',
+	needCompare: 'The archive comparison needs Pro.',
 };

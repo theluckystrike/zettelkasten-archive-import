@@ -1,9 +1,9 @@
 {
 	"id": "zettelkasten-archive-import",
 	"name": "Zettelkasten Archive Import",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"changes": [
-		"New Send feedback command. It opens a page where you can report a problem or suggest an idea."
+		"File name, Also add keywords as tags, Save rules and the earlier archive picker now show how to get Pro, with a Sponsor on GitHub button, when you select them. Nothing changes or saves until Pro is on."
 	],
 	"tip": "Import the same archive into the same folder again, and it skips the notes that already exist.",
 	"thanks": "Hi, I am Michael, a solo developer in Poland. Zettelkasten Archive Import is one of over 100 small plugins that I make. Thank you for moving your notes into Obsidian with it.",
