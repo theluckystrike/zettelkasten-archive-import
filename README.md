@@ -59,13 +59,13 @@ For manual installation, copy `main.js`, `manifest.json` and `styles.css` from a
 5. Select Create notes. The status line shows the progress. Select Stop import to stop after the current batch of 50 notes.
 6. Read the result counts. Expand "Import errors" if the result shows errors. Select Open first note to check a note.
 
-A second import of the same archive into the same folder skips the notes that exist. The plugin finds renamed notes by their `zkn3_position` property directly in that folder. A note that you move to a different folder or a note without that property is not found. An unrelated file at an output path is a file conflict and stays unchanged.
+A second import of the same archive into the same folder skips the notes that exist. The plugin finds renamed notes by their `zkn3_position` property in that folder. A note that you move to a different folder or a note without that property is not found. An unrelated file at an output path is a file conflict and stays unchanged.
 
 ## Settings
 
 After a minor or major update, this plugin opens one What's new tab in the background. The tab and settings card suggest other NoteMods plugins and Zovo Chat and link to notemods.com for feedback ([privacy](https://notemods.com/privacy/)). The tab sends no data. Turn the tab off in Settings.
 
-The settings tab sets the default import folder and has the GitHub Sponsors controls. The import window has the import folder and the Pro rules. A completed import saves its folder for the next import. Saved rules go into the local settings file of the plugin.
+The settings tab sets the default import folder and has the Sponsors controls. The import window has the import folder and the Pro rules. A completed import saves its folder for the next import. Saved rules go into the local settings file of the plugin.
 
 ## FAQ
 
@@ -91,6 +91,8 @@ The two official public sample archives and a local deleted-slot fixture pass th
 
 The core features are free. Pro features need a GitHub Sponsors sponsorship of theluckystrike: $5 a month or more, or $15 once. A total payment of $15 meets the payment requirement for Pro without further payment. Sign-in and the checks below still apply. Your notes stay readable and editable with or without Pro.
 
+[One payment turns on Pro in every NoteMods plugin](https://notemods.com/pro/).
+
 GitHub handles the payment. Sponsor at https://github.com/sponsors/theluckystrike?frequency=one-time&metadata_source=zettelkasten-archive-import. You need no account for the free features. Pro needs the GitHub account that sponsors.
 
 Until you select "Sign in with GitHub" in the settings, Zettelkasten Archive Import makes no network requests. Sign in uses the GitHub device flow. Zettelkasten Archive Import sends its public client ID and the scope `read:user` to `https://github.com/login/device/code` and shows you a code. While you enter the code at https://github.com/login/device, it asks `https://github.com/login/oauth/access_token` every few seconds to check the sign-in status. The scope permits profile reads only. GitHub needs this access to show the sponsorship tier. It grants no repository scope and no write access.
@@ -101,4 +103,4 @@ After a successful check, Pro can work offline for up to 14 days. Sign out or a 
 
 ## Support
 
-Report a problem in the repository issues with the app version and the error text. Remove private note text before you share an archive. Publisher: theluckystrike, notemods.com. License: MIT. The official test archives have their upstream license in `tests/fixtures/ZETTELKASTEN-LICENSE`.
+Report a problem in the repository issues with the app version and the error text. Remove private note text before you share an archive. License: MIT. The official test archives have their upstream license in `tests/fixtures/ZETTELKASTEN-LICENSE`.
