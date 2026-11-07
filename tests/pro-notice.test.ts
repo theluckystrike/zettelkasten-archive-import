@@ -11,7 +11,7 @@ import manifest from '../manifest.json';
 
 // A free user can select the Pro controls of the import window. The select shows the shared Pro notice with the
 // "Sponsor on GitHub" button. No rule changes or saves, no earlier archive is read, and each control shows its true value.
-const PITCH = 'Sponsor on GitHub, then sign in from the plugin settings.';
+const PITCH = 'One payment turns on Pro in every NoteMods plugin. Sponsor on GitHub, then sign in from the plugin settings.';
 const RULES = 'Saved keyword and file name rules need Pro.';
 const COMPARE = 'The archive comparison needs Pro.';
 const archiveBytes = () => readFileSync('tests/fixtures/deleted-slot.zkn3');
